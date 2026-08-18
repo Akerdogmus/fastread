@@ -1,0 +1,248 @@
+.library-page {
+  padding: 30px 36px;
+  max-width: 1400px;
+  min-height: 100vh;
+}
+
+.library-page__header {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.library-page__header h1 {
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+.library-page__subtitle {
+  font-size: 12.5px;
+  color: var(--color-neutral-600);
+  margin-top: 4px;
+}
+
+.library-page__actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.library-page__search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 260px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-pill);
+  padding: 8px 14px;
+  color: var(--color-neutral-600);
+}
+
+.library-page__search input {
+  border: none;
+  background: none;
+  padding: 0;
+  flex: 1;
+  font-size: 13px;
+}
+
+.library-page__error {
+  background: #f6d8cf;
+  border: 1px solid var(--color-accent-500);
+  color: var(--color-accent-800);
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+
+.library-page__filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.library-page__filters .tag {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tag--inactive {
+  background: transparent !important;
+  color: var(--color-neutral-600) !important;
+}
+
+.library-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.article-card {
+  background: var(--color-surface);
+  border-radius: 22px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+  min-height: 190px;
+  border: 2px solid transparent;
+  font-family: inherit;
+}
+
+.article-card:hover {
+  border-color: var(--color-accent);
+}
+
+.article-card__top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Conference proceedings names run very long ("Proceedings of the ACM India Joint
+   International Conference on...") and would otherwise push straight out of the pill and
+   across the year beside it. The full name is still available via the title attribute. */
+.article-card__top .tag-outline {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.article-card__year {
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 10px;
+  color: var(--color-neutral-600);
+}
+
+.article-card h3 {
+  font-size: 17px;
+  line-height: 1.22;
+  padding-right: 20px;
+}
+
+.article-card__meta {
+  font-size: 12px;
+  color: var(--color-neutral-700);
+}
+
+.article-card__apa {
+  font-size: 10.5px;
+  line-height: 1.5;
+  color: var(--color-neutral-600);
+  border-left: 2px solid var(--color-divider);
+  padding-left: 9px;
+}
+
+.article-card__bottom {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-top: 8px;
+}
+
+.article-card__pages {
+  font-size: 10.5px;
+  color: var(--color-neutral-700);
+}
+
+.article-card__delete {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--color-neutral-500);
+  display: grid;
+  place-items: center;
+}
+
+.article-card__delete:hover {
+  background: rgba(198, 113, 57, 0.14);
+  color: var(--color-accent-700);
+}
+
+.article-card--add {
+  border: 2px dashed var(--color-divider);
+  background: transparent;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 9px;
+  color: var(--color-neutral-600);
+  box-shadow: none;
+}
+
+.article-card--add:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent-700);
+}
+
+.article-card__add-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: rgba(198, 113, 57, 0.14);
+  color: var(--color-accent-600);
+  display: grid;
+  place-items: center;
+}
+
+.article-card__add-title {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  color: var(--color-text);
+}
+
+.article-card__add-hint {
+  font-size: 11.5px;
+  line-height: 1.5;
+  max-width: 210px;
+}
+
+.library-page__empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  max-width: 440px;
+  margin: 60px auto;
+}
+
+.library-page__empty-icon {
+  width: 112px;
+  height: 112px;
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-neutral-400);
+  display: grid;
+  place-items: center;
+}
+
+.library-page__empty-state h2 {
+  font-size: 26px;
+}
+
+.library-page__empty-state p {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--color-neutral-700);
+}

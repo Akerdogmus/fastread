@@ -1,0 +1,115 @@
+/* fastread — "Organic" design tokens.
+   Warm, rounded, paper-and-ink reading app: a cream-and-sand ground with a
+   terracotta accent (notes/actions) and a sage second accent (saved/local),
+   Caprasimo display headings over Figtree UI text, a serif for page content. */
+
+:root {
+  --color-bg: #f5ead8;
+  --color-surface: #ebddc5;
+  --color-surface-soft: #f9f4ed;
+  --color-text: #201e1d;
+  --color-accent: #c67139;
+  --color-accent-2: #7a8a5e;
+  --color-divider: rgba(32, 30, 29, 0.16);
+
+  /* Tonal ramps — same shared lightness scale across roles. */
+  --color-neutral-100: #f9f4ed;
+  --color-neutral-200: #eee7db;
+  --color-neutral-300: #dcd3c4;
+  --color-neutral-400: #c0b6a5;
+  --color-neutral-500: #a19786;
+  --color-neutral-600: #82796a;
+  --color-neutral-700: #645c50;
+  --color-neutral-800: #474238;
+  --color-neutral-900: #2e2b25;
+
+  --color-accent-100: #fff2eb;
+  --color-accent-200: #ffe1d0;
+  --color-accent-300: #ffc6a5;
+  --color-accent-400: #f6a06b;
+  --color-accent-500: #d67f48;
+  --color-accent-600: #b2622d;
+  --color-accent-700: #8c491a;
+  --color-accent-800: #643312;
+  --color-accent-900: #402310;
+
+  --color-accent2-100: #f0fae1;
+  --color-accent2-200: #e1eecc;
+  --color-accent2-300: #ccdbb2;
+  --color-accent2-400: #aebf92;
+  --color-accent2-500: #8fa073;
+  --color-accent2-600: #728157;
+  --color-accent2-700: #56633f;
+  --color-accent2-800: #3d472b;
+  --color-accent2-900: #272e1b;
+
+  /* Dark "reading room" surfaces — used by the Reader and Knowledge Graph
+     screens, plus the icon rail everywhere. Text on these is the cream
+     ground color at reduced opacity, via --on-dark. */
+  --ink-900: #191716;
+  --ink-800: #201e1d;
+  --ink-700: #2b2725;
+  --ink-600: #1c1a19;
+  --on-dark: 245, 234, 216;
+
+  --font-heading: 'Caprasimo', Georgia, serif;
+  --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif', serif;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 13px;
+  --space-4: 18px;
+  --space-6: 26px;
+  --space-8: 35px;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(46, 43, 37, 0.14);
+  --shadow-md: 0 3px 10px rgba(46, 43, 37, 0.16);
+  --shadow-lg: 0 12px 32px rgba(46, 43, 37, 0.22);
+  --shadow-page: 0 18px 40px rgba(0, 0, 0, 0.45);
+  --shadow-modal: 0 12px 32px rgba(0, 0, 0, 0.45);
+  --shadow-float: 0 10px 24px rgba(0, 0, 0, 0.35);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.55;
+  font-family: var(--font-body);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+::selection {
+  background: rgba(198, 113, 57, 0.3);
+}

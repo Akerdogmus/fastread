@@ -1,0 +1,19 @@
+node_modules
+dist
+out
+*.tsbuildinfo
+
+.DS_Store
+Thumbs.db
+
+.eslintcache
+*.log*
+
+# Local env / secrets. The Gemini API key is stored in the app's own settings.json
+# outside the repo, but keep this here so a stray .env can never be committed.
+.env
+.env.*
+
+# Local scratch: files staged for manual deletion, and design mockups kept beside the
+# project rather than in it.
+_to_delete/
