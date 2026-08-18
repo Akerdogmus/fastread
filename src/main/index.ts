@@ -8,6 +8,31 @@ import { loadSettings, saveSettings } from './settingsStore'
 import { extractCitationFromText, interpretText, translateText } from './llmService'
 import type { AppSettings } from '@shared/types'
 
+/**
+ * The window is only ever allowed to sit on the app's own bundled UI: the dev server in
+ * development, or the built index.html in production. Nothing else.
+ *
+ * This is load-bearing, not boilerplate. The reader renders text lifted out of whatever PDF
+ * the user opened, and a PDF is an untrusted document — an attacker who gets HTML into that
+ * text (see the sanitizer in renderer/src/lib/markdown.ts) can inject a `<meta http-equiv=
+ * "refresh">`, which navigates the window with no script execution at all, so the page's CSP
+ * does not stop it. Should such a navigation land, the preload stays attached to the
+ * webContents across it, and the attacker's own origin inherits the whole `window.api`
+ * surface — arbitrary local file reads and the stored Gemini key included. Refusing the
+ * navigation in the first place is what makes that chain a dead end.
+ */
+function isAllowedAppUrl(url: string): boolean {
+  const devUrl = process.env['ELECTRON_RENDERER_URL']
+  if (is.dev && devUrl && url.startsWith(devUrl)) return true
+  try {
+    const parsed = new URL(url)
+    if (parsed.protocol !== 'file:') return false
+    return parsed.pathname.endsWith('/renderer/index.html')
+  } catch {
+    return false
+  }
+}
+
 function createWindow(): void {
   const mainWindow = new BrowserWindow({
     width: 1400,
@@ -17,7 +42,11 @@ function createWindow(): void {
     icon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
-      sandbox: false
+      // The renderer parses untrusted PDFs through pdf.js in-process, which is precisely the
+      // case the OS sandbox exists for: a memory-safety bug in Blink or pdf.js is contained
+      // rather than running with the user's full privileges. The preload imports nothing but
+      // `electron` itself, so it needs no Node access and works unchanged under the sandbox.
+      sandbox: true
     }
   })
 
@@ -25,8 +54,22 @@ function createWindow(): void {
     mainWindow.show()
   })
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
-    shell.openExternal(details.url)
+  mainWindow.webContents.on('will-navigate', (event, url) => {
+    if (!isAllowedAppUrl(url)) event.preventDefault()
+  })
+
+  // Anything the app itself wants to open elsewhere goes to the real browser — but only over
+  // http(s). Handing the OS shell an arbitrary scheme from injected markup is its own attack:
+  // `file:///…/setup.exe` runs an installer, a Windows UNC path (`\\host\share`) leaks the
+  // user's NTLM hash to a remote host without any prompt, and several `ms-*:` handlers have
+  // been weaponised in the past.
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    try {
+      const { protocol } = new URL(url)
+      if (protocol === 'http:' || protocol === 'https:') shell.openExternal(url)
+    } catch {
+      // A URL that doesn't parse is never one worth handing to the shell.
+    }
     return { action: 'deny' }
   })
 
@@ -50,9 +93,15 @@ function registerIpcHandlers(): void {
     return { filePath, fileName: basename(filePath), data: new Uint8Array(data) }
   })
 
+  // Reading a file is only ever legitimate for a PDF the user themselves added to the
+  // library through the OS picker, so that's exactly what's permitted. Without this the
+  // handler is a general "read any file on this machine" primitive sitting behind an IPC
+  // channel — harmless while only the app's own code can call it, but the difference between
+  // an inconvenience and a disaster if anything else ever gets to.
   ipcMain.handle('file:read', async (_e, filePath: string) => {
-    const data = readFileSync(filePath)
-    return new Uint8Array(data)
+    const isKnownArticle = db.listArticles().some((a) => a.filePath === filePath)
+    if (!isKnownArticle) throw new Error('Bu dosyaya erişim izni yok')
+    return new Uint8Array(readFileSync(filePath))
   })
 
   // ---------- Articles ----------

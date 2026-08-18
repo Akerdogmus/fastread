@@ -29,7 +29,12 @@ async function callLmStudio(settings: AppSettings, messages: ChatMessage[]): Pro
 async function callGemini(settings: AppSettings, messages: ChatMessage[]): Promise<string> {
   if (!settings.geminiApiKey) throw new Error('Gemini API anahtarı ayarlanmamış')
   const model = settings.geminiModel || 'gemini-2.0-flash'
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${settings.geminiApiKey}`
+  // The key travels in a header, not the query string. A query string is the part of a URL
+  // that routinely ends up somewhere it shouldn't — crash dumps, process listings, proxy and
+  // server access logs — whereas a header stays inside the TLS-encrypted body and out of all
+  // of them. The model name is encoded because it comes from a user-editable settings field
+  // and would otherwise be able to reshape the request path.
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent`
   const systemMsg = messages.find((m) => m.role === 'system')?.content
   const userMsg = messages
     .filter((m) => m.role === 'user')
@@ -45,7 +50,10 @@ async function callGemini(settings: AppSettings, messages: ChatMessage[]): Promi
 
   const res = await fetch(url, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-goog-api-key': settings.geminiApiKey
+    },
     body: JSON.stringify(body),
     signal: AbortSignal.timeout(60_000)
   })

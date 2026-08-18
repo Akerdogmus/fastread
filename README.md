@@ -62,7 +62,7 @@ year, journal and DOI. You confirm or correct the draft, and an APA 7 citation i
 Requires [Node.js](https://nodejs.org) 20 or newer.
 
 ```bash
-git clone https://github.com/akerdogmus/fastread.git
+git clone https://github.com/<your-username>/fastread.git
 cd fastread
 npm install
 npm run dev
@@ -146,3 +146,18 @@ npm run build      # typecheck + production build into out/
 ## License
 
 [MIT](LICENSE)
+
+## Security
+
+The reader treats every PDF as an untrusted document, because it is one. Text lifted out of
+a PDF — and any translation of it — is sanitised with DOMPurify before it reaches the DOM,
+the window is not permitted to navigate away from the app's own UI, the renderer runs
+sandboxed with context isolation, and the preload exposes one narrow, purpose-built API
+rather than a general IPC channel. `file:read` will only open a PDF already registered in
+the library.
+
+Your Gemini API key, if you set one, is stored in `settings.json` with owner-only
+permissions and is sent as a request header to Google's endpoint and nowhere else.
+
+If you find a security issue, please open an issue describing it (or email the address on
+the repository owner's profile for anything you'd rather not disclose publicly).

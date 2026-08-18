@@ -8,10 +8,18 @@
       type="image/png"
       href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAE0UlEQVRYhZ1XS2wbVRQ9Mx5/8rHjuvmK0pYqEW1pWqAJoAZEhVSBUCUk+mMB7YKKwgrEkg1dgACxY0Op2LRlE2ABG1AI0Ep8FKFYatpETURCkzYkaZqP7TjBiT33sHBsz3jejJvaixnN3Ln3nPvOO+89DZbf0NljgapQ7hTBE0LuobCRpCYkSKJwtd4LAYrbO4IkSZkV4jrI7vBK5kLH+Xi2UFMr3Pzz6ZG9EPmWZJuIazJ7ISFIeBXPX8X2bEQ07ejzn/05WAQw9vFL7Rr030lGvNlaC1ufuYAQ11ypnGl2HT7XP6itt32QZJsn23Um7gAtIBRxChAjTaa0G1Wh3Ckh2zbQwvvVQjmRh6c07aQh5HHXpO4tVGhhHYRXvJPIcZ0ij1qDigjvobgo4lTx/vDmYnfK4vbpAsZIsRVWDUM5E2vh0juxPQttasaOF09jz6vvwR+OqXI1GCT1+5xOrqw1nx9bnjmC+p2dmB+9ioGLHyCTnHPGC3XD3sISCOg+aEYAhhGAmcvCTCfvSQvQdIRiLTCC1Rj5/nMkJoZBEoHIZmg+H9Jz0zYihkPJJJpfOI1N7Qeh6XrRJWnmkFtOIbMwjdT4EBaG+5Cevolo6+OItj6G8LZdCNXVw19TB2h5f9v67MuQXA6J8SEYwRBu9/2EpdnvbKANZzuBquYdMFeXsThwBSImNN0HX3UEgchmhBoeRHj7I3jg4HFQpAgyMz+N1OTfWEsnsJZOQA8E0bi7C8FoPQig/8uzWFmcdXTOKG8hSQBANjWP270XlS2vatiKbYdeQ3RnB272XMB0/GesJudtzKhpmBn4A51vfYLU5BhWFmfhD29CdmUJ2bXVYi5dNZ0AlBKVTTsKkZ4Zx3jvVzAzK5i4/LWtuBTy5UwkJ0dBApEtrdj/+lk8eeZDxFr32kRtqOZ7oQuVrLUA1G2NaOl4DpoGGMEqjF7+BvNj15FJLdrI6qppVBSehy8U/l6+MPlXLwBgbnQAU1d/w3/JRYdxOURICwAvdyuEeS08YprrQXB1VkPVwpIGRO3v61pQgSzXQr6+OxHDbZktJXfXAirsA6xk8jYNBxHDrbhNYKIoBKcIK+eCA6DCiCwacLFpx0zx2AesS8ASZwdtqD4kAE3TYYRqAH9+LVhdSlYUIUlQ1xGsjcI0c/D5gyU9iZOIQ4SFIACoad6OA+9329aCtXQSy3cnsTA2iKU74wCA+t1PoHFnJ2I79qAq2oBgOFpcC0rtLxcryjpQNkWm+n5AZOsurC0nIGZ+LfDX1iEUqUdNy3bEWvcVkz/15kcAgOW5f7F4axiZpQQyqQWQhM8IIBCuw63+XxVDlB9i7co7T5smqavGz2qZ1g9rWx5C26FX0NTeheEfL2Kirwcribsb3BMCJEX75e2uWZINlaaTWwutcV7Gpd7QYEYnMWAzjwJC5ZbLCfCeiguVe0Ihr+kCs5tlhZWuZmMiFQGqiJTHg2a3HstkL4hwpNL4FazV+3BSmYgFxI3qmZZLesf5eNYU86iQKVdGyhaKswMKgC6iTiJnHjsTj2d1ADh8rn8QYJeQIxtpYRGEhxYUAG8IzQPv9swMAZbTMQB88cZ+f6PISTF5QsB2kk30Op4rrFUBghTeEeE1ULqrZ1sunYmXjuf/A9o1Lwca7OaVAAAAAElFTkSuQmCC"
     />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!--
+      https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
+      script-src without 'unsafe-inline' is what keeps an injected inline handler
+      (<img onerror=…>) from ever executing. The last three directives do NOT fall back to
+      default-src and so have to be named explicitly: form-action stops injected markup
+      POSTing off-origin, base-uri stops an injected <base> re-pointing relative URLs, and
+      object-src closes off plugin embedding. No CSP directive can prevent top-level
+      navigation, though — that is handled in the main process; see isAllowedAppUrl.
+    -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; form-action 'none'; base-uri 'none'; object-src 'none'"
     />
   </head>
 

@@ -31,10 +31,10 @@
     "build:linux": "electron-vite build && electron-builder --linux"
   },
   "dependencies": {
-    "@electron-toolkit/preload": "^3.0.2",
     "@electron-toolkit/utils": "^4.0.0",
     "@fontsource/caprasimo": "^5.3.0",
     "@fontsource/figtree": "^5.3.0",
+    "dompurify": "^3.4.13",
     "marked": "^18.0.9",
     "pdfjs-dist": "^6.2.108",
     "react-force-graph-2d": "^1.29.1",

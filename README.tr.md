@@ -64,7 +64,7 @@ ve DOI taslağı çıkarılır. Sen onaylar veya düzeltirsin, APA 7 künyesi ü
 [Node.js](https://nodejs.org) 20 veya üstü gerekir.
 
 ```bash
-git clone https://github.com/akerdogmus/fastread.git
+git clone https://github.com/<kullanici-adin>/fastread.git
 cd fastread
 npm install
 npm run dev
@@ -148,3 +148,17 @@ npm run build      # tip kontrolü + out/ içine prodüksiyon derlemesi
 ## Lisans
 
 [MIT](LICENSE)
+
+## Güvenlik
+
+Okuyucu her PDF'i güvenilmeyen bir belge olarak ele alır — çünkü öyledir. PDF'ten çıkarılan
+metin ve onun çevirisi, DOM'a ulaşmadan önce DOMPurify ile temizlenir; pencerenin uygulamanın
+kendi arayüzü dışına gitmesine izin verilmez; renderer, bağlam yalıtımıyla ve kum havuzunda
+(sandbox) çalışır; preload genel bir IPC kanalı yerine yalnızca dar ve amaca özel bir API açar.
+`file:read` sadece kütüphaneye kayıtlı bir PDF'i açabilir.
+
+Gemini API anahtarın (kullanıyorsan) `settings.json` içinde yalnızca sana okuma izni verecek
+şekilde saklanır ve yalnızca Google'ın uç noktasına, istek başlığında gönderilir.
+
+Bir güvenlik açığı bulursan lütfen bir issue aç (herkese açık paylaşmak istemediğin bir konu
+için depo sahibinin profilindeki e-posta adresini kullanabilirsin).

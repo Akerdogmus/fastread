@@ -1,5 +1,4 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { electronAPI } from '@electron-toolkit/preload'
 import type { AppSettings } from '@shared/types'
 import type { NewArticleInput, NewNoteInput } from '../main/db'
 
@@ -70,16 +69,9 @@ const api = {
 
 export type FastreadApi = typeof api
 
-if (process.contextIsolated) {
-  try {
-    contextBridge.exposeInMainWorld('electron', electronAPI)
-    contextBridge.exposeInMainWorld('api', api)
-  } catch (error) {
-    console.error(error)
-  }
-} else {
-  // @ts-ignore (define in dts)
-  window.electron = electronAPI
-  // @ts-ignore (define in dts)
-  window.api = api
-}
+// Only the narrow, purpose-built `api` object above crosses the bridge. The toolkit's
+// generic `electronAPI` helper is deliberately not exposed: it hands the renderer an
+// unrestricted `ipcRenderer` (any channel, not just the ones defined here) along with the
+// main process's entire `process.env`. Nothing in this app uses it, and every extra thing on
+// `window` is one more thing a page would inherit if it ever managed to run here.
+contextBridge.exposeInMainWorld('api', api)
