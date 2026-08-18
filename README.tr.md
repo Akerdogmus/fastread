@@ -64,7 +64,7 @@ ve DOI taslağı çıkarılır. Sen onaylar veya düzeltirsin, APA 7 künyesi ü
 [Node.js](https://nodejs.org) 20 veya üstü gerekir.
 
 ```bash
-git clone https://github.com/<kullanici-adin>/fastread.git
+git clone https://github.com/akerdogmus/fastread.git
 cd fastread
 npm install
 npm run dev

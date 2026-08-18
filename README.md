@@ -62,7 +62,7 @@ year, journal and DOI. You confirm or correct the draft, and an APA 7 citation i
 Requires [Node.js](https://nodejs.org) 20 or newer.
 
 ```bash
-git clone https://github.com/<your-username>/fastread.git
+git clone https://github.com/akerdogmus/fastread.git
 cd fastread
 npm install
 npm run dev
