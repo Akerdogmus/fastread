@@ -151,6 +151,8 @@ npm run build      # tip kontrolü + out/ içine prodüksiyon derlemesi
 
 ## Güvenlik
 
+Bu proje bir "vibe-coding" projesidir. Dolayısı ile kullanılırken dikkat edilmesi önerilir.
+
 Okuyucu her PDF'i güvenilmeyen bir belge olarak ele alır — çünkü öyledir. PDF'ten çıkarılan
 metin ve onun çevirisi, DOM'a ulaşmadan önce DOMPurify ile temizlenir; pencerenin uygulamanın
 kendi arayüzü dışına gitmesine izin verilmez; renderer, bağlam yalıtımıyla ve kum havuzunda
