@@ -7,7 +7,7 @@ zamanla birbirine bağlı bir bilgi ağına dönüşsün.**
 makaleler bilgisayarından çıkmaz. Bulut modeli (Gemini) isteğe bağlı yedek olarak
 kullanılabilir, varsayılan olarak kapalıdır.
 
-🇬🇧 [English README](README.md)
+🇬🇧 [English README](README.en.md)
 
 ![Okuyucu — orijinal PDF ve Türkçe çevirisi yan yana](docs/screenshots/02-reader.png)
 
