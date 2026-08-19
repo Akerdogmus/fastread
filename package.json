@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Desktop reader that shows an academic PDF beside a local-LLM translation, keeps every note attached to the page it came from, and links those notes into a knowledge graph.",
   "main": "./out/main/index.js",
-  "author": "ACD-INO Arge",
+  "author": "Alim Kerem Erdogmus",
   "license": "MIT",
   "keywords": [
     "electron",
