@@ -7,7 +7,7 @@ Translation runs on a **local LLM** through [LM Studio](https://lmstudio.ai), so
 you read never leave your machine. A cloud model (Gemini) is available as an optional
 fallback, off by default.
 
-🇹🇷 [Türkçe README](README.tr.md) · The application interface is currently in Turkish.
+🇹🇷 [Türkçe README](README.md) · The application interface is currently in Turkish.
 
 ![Reader — original PDF beside its Turkish translation](docs/screenshots/02-reader.png)
 
