@@ -1,4 +1,4 @@
-appId: com.acdino.fastread
+appId: com.ake.fastread
 productName: fastread
 directories:
   buildResources: build
@@ -29,7 +29,7 @@ dmg:
 linux:
   target:
     - AppImage
-  maintainer: acd-ino
+  maintainer: ake
   category: Education
 appImage:
   artifactName: ${name}-${version}.${ext}
